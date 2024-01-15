@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Address Page</title>
+    <script>
+        var addressObject = {
+            "India": {
+                "Bihar": ["Gaya", "Patna"],
+                "Gujrat": ["Ahmedabad", "Surat"],
+                "Haryana": ["Faridabad", "Gurgaon"],
+                "Maharashtra": ["Mumbai", "Pune"],
+                "Uttar Pradesh": ["Kanpur", "Lucknow"]
+            },
+            "Nepal": {
+                "Bagmati": ["Bharatpur", "Kathmandu"],
+                "Koshi": ["Sunsari", "Udayapur"],
+                "Madhesh": ["Bara", "Dhanusha"],
+                "Gandaki": ["Pokhara", "Waling"],
+                "Lumbini": ["Butwal", "Sitganga"]
+            }
+        }
+        window.onload = function () {
+            var countrySel = document.getElementById("country");
+            var stateSel = document.getElementById("state");
+            var citySel = document.getElementById("city");
+            for (var x in addressObject) {
+                countrySel.options[countrySel.options.length] = new Option(x, x);
+            }
+            countrySel.onchange = function () {
+                citySel.length = 1;
+                stateSel.length = 1;
+                for (var y in addressObject[this.value]) {
+                    stateSel.options[stateSel.options.length] = new Option(y, y);
+                }
+            }
+            stateSel.onchange = function () {
+                citySel.length = 1;
+                var z = addressObject[countrySel.value][this.value];
+                for (var i = 0; i < z.length; i++) {
+                    citySel.options[citySel.options.length] = new Option(z[i], z[i]);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <h1>Address Dropdown</h1>
+
+    <form name="form1" id="form1" action="/action_page.php">
+        Countries: <select name="country" id="country">
+            <option value="" selected="selected">Select country</option>
+        </select>
+        <br><br>
+        States: <select name="state" id="state">
+            <option value="" selected="selected">Please select country first</option>
+        </select>
+        <br><br>
+        Cities: <select name="city" id="city">
+            <option value="" selected="selected">Please select state first</option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+
+</html>
